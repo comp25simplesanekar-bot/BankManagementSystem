@@ -12,11 +12,15 @@ public class CurrentAccount extends Account {
             System.out.println("Please enter an amount greater than zero.");
             return false;
         }
+        if (!withinDailyLimit(amount)) {
+            return false;
+        }
         if (balance - amount < -OVERDRAFT_LIMIT) {
             System.out.println("Not allowed. Overdraft limit of " + OVERDRAFT_LIMIT + " would be crossed.");
             return false;
         }
         balance = balance - amount;
+        recordWithdrawal(amount);
         System.out.println("Withdrawal successful. New balance: " + balance);
         return true;
     }
@@ -26,5 +30,3 @@ public class CurrentAccount extends Account {
         return "Current";
     }
 }
-    
-

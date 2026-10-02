@@ -31,10 +31,12 @@ public class Main {
             System.out.println("1. Create account");
             System.out.println("2. Deposit money");
             System.out.println("3. Withdraw money");
-            System.out.println("4. Transfer money");
-            System.out.println("5. Show all accounts");
-            System.out.println("6. Exit");
-            String choice = readText("Choose an option (1-6): ");
+            System.out.println("4. Check balance");
+            System.out.println("5. Display account information");
+            System.out.println("6. Transfer money");
+            System.out.println("7. Show all accounts");
+            System.out.println("8. Exit");
+            String choice = readText("Choose an option (1-8): ");
 
             switch (choice) {
                 case "1":
@@ -64,23 +66,41 @@ public class Main {
                     break;
 
                 case "4":
+                    Account balanceOf = bank.findAccount(readText("Account number: "));
+                    if (balanceOf == null) {
+                        System.out.println("Account not found.");
+                    } else {
+                        balanceOf.checkBalance();
+                    }
+                    break;
+
+                case "5":
+                    Account infoOf = bank.findAccount(readText("Account number: "));
+                    if (infoOf == null) {
+                        System.out.println("Account not found.");
+                    } else {
+                        infoOf.showDetails();
+                    }
+                    break;
+
+                case "6":
                     String from = readText("From account number: ");
                     String to = readText("To account number: ");
                     double amount = readNumber("Amount to transfer: ");
                     bank.transfer(from, to, amount);
                     break;
 
-                case "5":
+                case "7":
                     bank.showAllAccounts();
                     break;
 
-                case "6":
+                case "8":
                     running = false;
                     System.out.println("Thank you for banking with us. Goodbye.");
                     break;
 
                 default:
-                    System.out.println("Please choose a number from 1 to 6.");
+                    System.out.println("Please choose a number from 1 to 8.");
             }
         }
     }

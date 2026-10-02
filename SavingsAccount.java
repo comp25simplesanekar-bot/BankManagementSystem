@@ -12,11 +12,15 @@ public class SavingsAccount extends Account {
             System.out.println("Please enter an amount greater than zero.");
             return false;
         }
+        if (!withinDailyLimit(amount)) {
+            return false;
+        }
         if (balance - amount < MINIMUM_BALANCE) {
             System.out.println("Not allowed. A savings account must keep at least " + MINIMUM_BALANCE);
             return false;
         }
         balance = balance - amount;
+        recordWithdrawal(amount);
         System.out.println("Withdrawal successful. New balance: " + balance);
         return true;
     }
